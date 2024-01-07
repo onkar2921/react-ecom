@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCartToLocal } from '../redux/slices/userSlice';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
 export default function ProductsContainer({
@@ -16,7 +16,7 @@ export default function ProductsContainer({
   id
 }) {
   const dispatch = useDispatch();
-  
+  const location = useLocation();
   const notify = (message) =>
   toast(message, {
     position: "top-right",
@@ -52,13 +52,16 @@ export default function ProductsContainer({
       </div>
 
       <div className="flex justify-between items-center p-4">
-        <button
-          onClick={handleAddToCart}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        >
-          Add To Cart
-        </button>
+      {
+          location.pathname!=='/cart'&&
+<button
+onClick={handleAddToCart}
+className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+>
+Add To Cart
+</button>
 
+      }
         <Link to={`/singleProduct/${id}`} className="text-blue-500 hover:underline">
           <button className="bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
             View More
